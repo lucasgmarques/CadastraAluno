@@ -22,39 +22,52 @@ def adicionaAluno(lista):
       print("Valor Inválido. Digite novamente.")
 
 def listaAlunos(lista):
+  total_imc = 0
   if len(lista) == 0:
     print("Não há alunos na lista.")
   else:
+    print("------------------------------------")
+    print("INFORMAÇÕES DO ALUNO(a) CADASTRADOS:")
+    print("------------------------------------")
+    
     for aluno in lista:
       nome, idade, peso, altura, imc = aluno
-      print("----------------------------")
-      print("Lista de alunos cadastrados:")
-      print("----------------------------")
+     
       print(f'Nome: {nome}')
       print(f'Idade: {idade}')
       print(f'Peso: {peso}')
       print(f'Altura: {altura}')
       print(f'IMC: {imc:.2f}')
-      print("----------------------------")  
+      print("----------------------------")
+      total_imc += aluno[4]
+
+    print(f'Média do IMC dos alunos: {total_imc / len(lista):.2f}')
 
 def pesquisaAluno(lista):
+
   if len(lista) == 0:
     print("Não há alunos na lista.")
   else:
+    nome_desejado = input("Digite o nome do aluno desejado: ")
+    encontrado = False
+    
     for aluno in lista:
-      nome, idade, peso, altura, imc = aluno
-      nome_desejado = input("Digite o nome do aluno desejado: ")
-
-      if nome_desejado == aluno[0]:
+      if aluno[0] == nome_desejado:
+        encontrado = True
+        nome, idade, peso, altura, imc = aluno
+        print("-----------------------")
+        print("INFORMAÇÕES DO ALUNO(a):")
+        print("-----------------------")
         print(f'Nome: {nome}')
         print(f'Idade: {idade}')
         print(f'Peso: {peso}')
         print(f'Altura: {altura}')
         print(f'IMC: {imc:.2f}')
-        print("\n")
-      else:
-        print("Aluno não encontrado.")
-
+        print("------------------")
+        break
+    if not encontrado:
+      print("Aluno não encontrado")
+      
 def excluiAlunos(lista):
   if len(lista) == 0:
     print("Não há alunos na lista.")
@@ -74,6 +87,8 @@ def pesquisaAlunoIdade(lista):
 
   for aluno in lista:
     nome, idade, peso, altura, imc = aluno
+    totalIMC = 0
+    
     if idade == idade_escolhida:
       alunos_encontrados.append(aluno)
 
@@ -90,9 +105,10 @@ def pesquisaAlunoIdade(lista):
         print(f'IMC: {imc:.2f}')
         print("\n")
 
-        totalIMC = sum([i[4] for i in alunos_encontrados])
-        mediaIMC = totalIMC / len(alunos_encontrados)
-      
+        totalIMC += aluno[4]
+
+      # Calcula o IMC
+      mediaIMC = totalIMC / len(alunos_encontrados)
       print(f'IMC médio do grupo: {mediaIMC:.2f}')
 
 def calculaIMC(peso, altura):
